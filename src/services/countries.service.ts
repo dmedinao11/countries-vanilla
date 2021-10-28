@@ -1,12 +1,12 @@
 import { ICountry, Region, ICountryDetail } from "../models/countries.interfaces";
 
-const API_MAIN_ROUTE = "https://restcountries.eu/rest/v2";
+const API_MAIN_ROUTE = "https://restcountries.com/v2";
 const API_ROUTES = {
 	all: API_MAIN_ROUTE + "/all",
 	byRegion: API_MAIN_ROUTE + "/region",
 	byName: API_MAIN_ROUTE + "/name",
 	byCode: API_MAIN_ROUTE + "/alpha",
-	fields: "?fields=name;population;region;capital;flag;alpha3Code"
+	fields: "?fields=name,population,region,capital,flag,alpha3Code"
 };
 
 export class CountriesService {
@@ -40,7 +40,7 @@ export class CountriesService {
 		let data: ICountryDetail | null;
 		try {
 			data = await fetch(
-				`${API_ROUTES.byCode}/${code}${API_ROUTES.fields};languages;currencies;topLevelDomain;subregion;nativeName;borders`
+				`${API_ROUTES.byCode}/${code}${API_ROUTES.fields},languages,currencies,topLevelDomain,subregion,nativeName,borders`
 			)
 				.then((resp: Response) => resp.json())
 				.then(async (resp: ICountryDetail) => {
